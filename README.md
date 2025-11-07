@@ -29,7 +29,8 @@ Protected areas are a central conservation tool, but they aren’t placed at ran
     # macOS/Linux
     # source .venv/bin/activate
 
-    pip install -U pip geopandas shapely rasterio pyproj scikit-learn pandas numpy matplotlib
+    pip install -U pip
+    pip install -e .
 
 **2) Download Dataset**
 
@@ -47,11 +48,28 @@ Protected areas are a central conservation tool, but they aren’t placed at ran
 
 **4) Match, infer, and generate figures**
 
-    python scripts/propensity_matching.py --caliper 0.10
+    # CLI with packaged pipeline
+    deforestation match data/processed/grid_stats_with_protection.geojson \
+        --covariate pop_density \
+        --covariate road_dist \
+        --caliper 0.1 \
+        --output-dir reports/matching
+
+    # Or run the original GeoPandas workflow (writes GeoJSON + CSV outputs)
+    python scripts/propensity_matching.py --caliper 0.10 --output-dir reports/matching
     python scripts/advanced_inference.py
     python scripts/generate_figures.py
 
 > The repo includes a small demo/sample route so you can run end-to-end in minutes. For full analysis, point scripts to your local WDPA/GFC/OSM/SEDAC paths.
+
+
+---
+
+## Testing
+
+Run the synthetic test-suite to verify the matching utilities and ensure regressions are caught early.
+
+    pytest
 
 ---
 

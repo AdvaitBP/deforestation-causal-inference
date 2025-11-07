@@ -4,6 +4,17 @@ version = "0.1.0"
 description = "Causal impact of protected areas on deforestation with matching + robust inference."
 requires-python = ">=3.10"
 
+dependencies = [
+    "pandas>=1.5",
+    "numpy>=1.23",
+    "scikit-learn>=1.2",
+    "geopandas>=0.12",
+    "rasterstats>=0.16",
+    "seaborn>=0.12",
+    "matplotlib>=3.6",
+    "typer>=0.9"
+]
+
 [tool.black]
 line-length = 100
 
@@ -14,3 +25,6 @@ select = ["E","F","I","UP"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+
+[project.scripts]
+deforestation = "deforestation.cli:main"
